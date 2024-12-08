@@ -782,3 +782,516 @@ InnoDB的表要求必须要有**聚簇索引：**
 定义为text, bit数据类型的列不应该创建索引。
 
 当修改性能远远大于检索性能时，不应该创建索引。
+
+## 5.1数据库的完整性
+
+### 完整性规则
+
+为维护数据库的完整性，DBMS必须设计：
+
+触发条件：规定系统什么时候使用规则来检查数据。 
+
+约束条件：检查用户发出的操作请求违背了什么样的完整性约束条件。 
+
+违约响应：规定系统如果发现用户的操作违约时要做的事情。 
+
+实体完整性：通过主键来标识某个独一无二的实体
+
+参照完整性：通过外键标识某两个实体之间的联系
+
+用户定义的完整性：针对某一具体字段的数据要求
+
+
+
+### 实体完整性
+
+主键保证，主键唯一，且不能为空
+
+建表时用PRIMARY KEY定义。
+
+ALTER TABLE也可以增加主键约束。
+
+判断主键唯一，一般需要全表扫描，但这样太过耗时，因此关系系统一般在主键上自动建立一个索引
+
+### 参照完整性
+
+通过外键实现
+
+实现两表之间相关数据的一致性。
+
+外键约束在建表时创建，或者修改表时增加
+
+在对被参照表或参照表进行更新时，可能破坏参照完整性，因此更新之前必须保证两个表的相容性。
+
+### 用户定义的完整性
+
+针对某一具体应用的数据必须满足的语义要求。
+
+在建表或修改表结构时，可以根据要求定义属性上的约束条件，如N`OT NULL、UNIQUE、DEFAULT、CHECK()、auto_increment`等。
+
+### 触发器
+
+触发器是一种特殊的存储过程，是由事件来触发某个操作。当数据库执行UPDATE，INSERT和DELETE等事件时，
+
+就会激活触发器执行相应的操作。这些事件称为触发条件。
+
+#### 作用:
+
+**安全性**。能够基于数据库的值使用户具有操作数据库的某种权利。比如：能够基于时间限制用户的操作，比如不同
+
+意下班后和节假日改动数据库数据。
+
+**审计**。能够跟踪用户对数据库的操作。
+
+**实现复杂**的数据完整性规则。
+
+**同步实时**地复制表中的数据。
+
+**主动计算数据值**，假设数据的值达到了一定的要求，则进行特定的处理。比如，假设公司的帐号上的资金低于5万
+
+元则马上给財务人员发送警告数据。
+
+#### 触发器缺点
+
+触发器定义在表上，在SQL语句执行前/后触发，针对每一行执行，因此在对增删改查频繁的表上不建议使用触发器，除非确定触发器是非常高效的。
+
+触发器能在一定程度上减少代码的编写，但其满足条件自动触发，增加了系统复杂性，使排错更加费时。
+
+不能提升系统的性能，相反还可能降低数据库性能，在业务复杂的时候还可能造成死锁。
+
+
+
+**BEFORE/AFTER：**触发器被触发的时刻。**BEFORE**指触发器在触发事件之前发生，**AFTER**指触发器在触发事件之后发生。
+
+e.g. 建立一个触发器，当向orders表中插入一个新订单时被触发，自动更新products表的quantity列，即把在orders表中指定的qty从products表相应行的quantity中减去。
+
+```sql
+DELIMITER $
+DROP TRIGGER IF EXISTS ortri1$
+CREATE TRIGGER ortri1 AFTER INSERT ON orders 
+FOR EACH ROW
+BEGIN
+UPDATE products SET quantity=quantity-new.qty WHERE pid = new.pid;
+END$
+DELIMITER ;
+```
+
+FOR EACH ROW：行级触发，受触发事件影响的每一行都要激活触发器的动作。不可省略。
+
+## 5.2 数据库的安全性
+
+### 数据库安全性
+
+​	保护数据库防止恶意破坏和非法的存取
+
+​	防范对象是非法用户和非法操作
+
+非法使用数据库的情况：
+
+1. 编写一段合法程序绕过DBMS及其授权机制，通过操作系统直接存取、修改或备份数据库数据；
+
+2. 直接或编写应用程序执行非授权操作；
+
+3. 通过多次合法查询数据库从中推导出一些保密数据;
+
+### 数据库安全性控制的常用方法
+
+1) 用户标识与鉴定
+
+​	系统提供的最外层安全保护措施
+
+​	基本方法
+
+​	系统提供一定的方式让用户标识自己的名字或身份；
+
+​	系统内部记录着所有合法用户的标识；
+
+​	每次用户要求进入系统时，由系统核对用户提供的身份标识；
+
+​	通过鉴定后才提供机器使用权。
+
+​	用户标识和鉴定可以重复多次。
+
+2. 存取控制
+
+3. 视图
+
+4. 审计
+
+5. 加密存储
+
+### MySQL 角色管理
+
+`CREATE ROLE 'role_name'[@'host_name'] [,'role_name'[@'host_name']]...`
+
+例：
+
+`CREATE ROLE ‘SalesRole’@‘localhost’;`
+
+角色和用户比较：
+
+创建时都会在mysql.user表中创建记录
+
+角色没有密码，且是被锁定状态，不能登录
+
+为用户分配角色
+
+角色创建并授权后，要赋给用户并处于激活状态才能发挥作用。
+
+`GRANT role [,role2,...] TO user [,user2,...];`
+
+`GRANT ‘SalesRole’@‘localhost’  TO 'SQLUser1'@'localhost' ;`
+
+将角色赋给用户，查看该用户的权限会显示出来。但是还需要激活角色，才能使角色生效。
+
+激活角色：定义当用户连接到服务器并进行身份验证或用户在会话期间，哪些角色将变为活动状态
+
+```sql
+SET DEFAULT ROLE
+    {NONE | ALL | role [, role ] ...}
+    TO user [, user ] ...
+-- 单个激活
+SET DEFAULT ROLE ALL TO 'zhangsan'@'localhost'; 
+--  批量激活
+SET DEFAULT ROLE ALL TO 'dev1'@'localhost','read_user1'@'localhost','read_user2'@'localhost‘;
+```
+
+### 存取控制机制的功能
+
+确保只授权给有资格的用户访问DB的权限。
+
+存取控制机制的组成
+
+ 定义存取权限
+
+ 检查存取权限
+
+用户权限定义和合法权检查机制一起组成了DBMS的安全子系统。
+
+DBMS所采取的存取控制策略主要有两种:
+
+**自主存取控制(Discretionary Access Control ，简称DAC）:**用户对于不同的数据库对象有不同的存取权限,不同的
+
+用户对同一对象也有不同的权限,而且用户还可将其拥有的存取权限转授给其他用户。
+
+自主存取控制灵活,常用。
+
+标准SQL提供了自主存取控制的语句，即GRANT/REVOKE
+
+**强制存取控制 （Mandatory Access Control，简称 MAC）:**
+
+每一个数据库对象被标以一定的密级,每一个用户也被授予某一个级别的许可证。
+
+对于任意一个对象,只有具有合法许可证的用户才可以存取。
+
+强制存取控制相对比较严格，只在某些专用系统中有用,例如军事部门或政府部门。 
+
+### 视图机制
+
+视图机制把要保密的数据对无权存取这些数据的用户隐藏起来。
+
+方法
+
+首先用视图机制屏蔽掉一部分保密数据；
+
+对视图定义存取权限。
+
+### 审计Audit
+
+启用一个专用的审计日志（Audit Log），跟踪和记录用户对数据库的所有操作；
+
+DBA可以利用审计日志中的追踪信息，找出非法存取数据的用户；
+
+审计很费时间和空间；
+
+DBA可以根据应用对安全性的要求，灵活地打开或关闭审计功能。
+
+MySQL社区版是不带审计功能
+
+### 数据加密
+
+数据加密：通过将数据更改为不可读形式而使敏感数据得以保密的方法。
+
+加密的基本思想
+
+根据一定的算法将原始数据（明文，Plain text）变换为不可直接识别的格式（密文，Cipher text）
+
+`SELECT * FROM mysql.user;`
+
+## 6.1.1变量的定义和使用
+
+局部变量通过set语句赋值
+
+set var_name=expr [, var_name=expr]…; 
+
+例 declare x,y int;
+
+   set x=1,y=2;
+
+用select … into…形式赋值
+
+select col_name[,...] into var_name[,...] FROM table_expr [where...];
+
+例 select count(*) into total_cus FROM customers;
+
+用户变量：在客户端链接到数据库实例整个过程中用户变量都是有效的。
+
+MySQL中用户变量不用事前声明，直接用“@变量名”使用就可以。用户变量名必须以@开头。
+
+第一种用法：set @num=1; 或set @num:=1; 
+
+第二种用法：select @num:=1; 或 select @num:=字段名 from 表名 where ……，
+
+select语句用来输出用户变量
+
+系统变量 分为全局变量与会话变量。
+
+全局变量在MySQL启动的时候由服务器自动初始化为默认值，可以通过更改my.ini来更改。
+
+会话变量在每次建立一个新的连接时，由MySQL初始化，将当前所有全局变量的值复制一份，作为会话变量。
+
+全局变量与会话变量的区别：
+
+对全局变量的修改会影响到整个服务器；
+
+对会话变量的修改，只会影响到当前的会话（即当前的数据库连接）。
+
+### IF语句
+
+```sql
+IF age>20 THEN SET @count1=@count1+1;
+    ELSEIF age=20 THEN 
+      set @count2=@count2+1;
+    ELSE set @count3=@count3+1;
+END lF;
+```
+
+### CASE语句
+
+```sql
+CASE age
+    WHEN 20 THEN SET @count1=@count1+1;
+    ELSE SET @count2=@count2+1;
+END CASE;
+-- 或
+CASE
+    WHEN age=20 THEN SET @count1=@count1+1;
+    ELSE SET @count2=@count2+1;
+END CASE;
+```
+
+### LOOP 语句
+
+可以使某些特定的语句重复执行。LOOP 语句本身没有停止循环的语句，必须使用 LEAVE等语句才能停止循环，
+
+跳出循环过程。
+
+```sql
+add_num:LOOP
+    SET @count=@count+1;
+END LOOP add_num;
+```
+
+### LEAVE 语句
+
+用于跳出循环控制。
+
+LEAVE label
+
+label 参数表示循环的标志
+
+```sql
+add_num:LOOP
+    SET @count=@count+1;
+    IF @count=100 THEN
+        LEAVE add_num;
+END LOOP add_num;
+```
+
+### ITERATE 语句
+
+跳出本次循环，直接进入下一次循环。
+
+ITERATE label
+
+label 参数表示循环的标志
+
+```sql
+add_num:LOOP
+    SET @count=@count+1;
+    IF @count=100 THEN
+        LEAVE add_num;
+    ELSE IF MOD(@count,3)=0 THEN
+        ITERATE add_num;
+    SELECT * FROM employee;
+END LOOP add_num;
+```
+
+### REPEAT 语句
+
+是有条件控制的循环语句，每次语句执行完毕后，会对条件表达式进行判断，如果表达式返回值为 TRUE，则循环
+
+结束，否则重复执行循环中的语句。
+
+```sql
+REPEAT
+    SET @count=@count+1;
+    UNTIL @count=100
+END REPEAT;
+```
+
+### WHILE 语句
+
+```sql
+WHILE @count<100 DO
+    SET @count=@count+1;
+END WHILE;
+```
+
+## 6.2 存储过程
+
+**存储过程**是 SQL 语句和可选流程控制语句的预编译集合，以一个名称存储并作为一个单元处理。
+
+**存储过程**可包含程序流、逻辑以及对数据库的查询。可以接受参数、输出参数、返回单个或多个结果集。
+
+触发器、其他存储过程以及Java，Python，PHP等应用程序可以调用存储过程
+
+**存储过程**一般可以嵌套，即一个存储过程可以调用另一个存储过程，但MySQL不支持递归存储过程。
+
+### 存储过程的优点
+
+**允许模块化程序设计**，存储过程对任何应用程序都是可重用的和透明的。
+
+**有助于提高应用程序的性能**。MySQL存储过程按需编译，并在高速缓存中保留存储过程的编译版本，以便以后使
+
+用，从而缩短了执行时间。 
+
+**减少网络流量**。
+
+**可作为安全机制使用**。DBA可以向访问数据库中存储过程的应用程序授予适当的权限，而不向基础数据库表提供
+
+任何权限。
+
+创建存储过程proc_Qcustomer：通过顾客的cid来查询顾客的姓名、城市和这个顾客的折扣。
+
+```sql
+DELIMITER $$
+CREATE PROCEDURE proc_Qcustomer (IN in_cid char(4),OUT out_cname varchar(30),OUT out_city varchar(50),OUT out_discnt float)
+begin 
+SELECT cname, city, discnt into out_cname, out_city, out_discnt FROM customers WHERE cid = in_cid;
+End$$
+DELIMITER ;
+```
+
+创建存储过程customerLevel，通过顾客的cid计算顾客购买的全部商品的总金额，根据总金额设置用户级别，如
+
+果总金额大于3000，顾客等级为A，总金额大于1000并且小于等于3000，顾客等级为B，总金额小于1000，顾客
+
+等级为C，从来未购买商品的顾客，等级为D。
+
+```sql
+DELIMITER $$
+CREATE PROCEDURE customerLevel(in  p_customerNumber char(4),     out p_customerLevel  char(2))    
+BEGIN    
+DECLARE totaldollar float; --局部变量   
+SELECT sum(dollars) INTO totaldollar    FROM orders     WHERE cid=p_customerNumber;    
+IF totaldollar > 3000 THEN    
+set p_customerLevel='A';    
+ELSEIF (totaldollar  >= 1000) THEN    
+set p_customerLevel='B';    
+ELSEIF totaldollar < 1000 THEN    
+set p_customerLevel='C';    
+elseif totaldollar is null then   
+ set p_customerLevel='D';   
+ END IF;    
+end$$
+DELIMITER ;
+```
+
+### MySQL使用存储过程返回表
+
+```sql
+DELIMITER //
+CREATE PROCEDURE getorder(cid1 char(4) )
+BEGIN
+select * from orders where cid=cid1;
+END//
+DELIMITER ;
+```
+
+## 6.3 函数
+
+函数是由一个或多个 SQL 语句组成的子程序，可用于封装代码以便重新使用。
+
+### 优点：
+
+允许模块化程序设计。
+
+执行速度更快。使用函数时无需重新解析和重新优化，从而缩短了执行时间。
+
+减少网络流量。
+
+使用灵活。 
+
+### 存储过程和函数的区别
+
+存储过程可以返回输出参数或表，而函数只能返回值。
+
+存储过程一般是作为一个独立的部分来执行，而函数可以作为查询语句的一个部分来调用。
+
+函数在系统启动时就进行编译并加载，存储过程在调用时才加载。
+
+MySQL 支持两种函数类型： 
+
+系统函数（内置函数）： 系统定义且不能修改。
+
+用户定义函数
+
+### 系统函数类型：
+
+1. 控制流程函数
+
+2. 字符串函数
+
+3. 数学函数
+4. 日期时间函数
+
+5. 搜索函数
+
+6. 加密函数
+
+7. 信息函数 
+8. 其他函数 
+9. 聚合函数
+
+returnVarType: 返回值类型。函数必须有且只能有一个返回值
+
+创建一个函数F_Price ，要求：根据顾客姓名和商品名，查询顾客订购该商品的总价。 
+
+```sql
+USE sales;
+DROP function IF EXISTS F_Price;
+DELIMITER $$
+CREATE FUNCTION F_Price (in_cname char(50),in_pname char(50))
+RETURNS float
+READS SQL DATA    -- 意为函数体包含读数据sql语句
+RETURN (SELECT sum(dollars) FROM orders,customers,products
+        WHERE orders.cid=customers.cid 
+		AND orders.pid=products.pid 
+        AND customers.cname=in_cname 
+		AND products.pname=in_pname) $$
+DELIMITER ;
+```
+
+## 6.4 游标
+
+游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果，是一种临时的数据库对象。
+
+游标可以对结果集中的每一条记录进行定位，并对指向的记录中的数据进行操作，充当了指针的作用
+
+每个游标区都有一个名字 
+
+MySQL中游标可以在存储过程和函数中使用
+
+用户也可以用SQL语句逐一从游标中获取记录，并赋给变量，交由高级程序设计语言进一步处理。
+
