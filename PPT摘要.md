@@ -1,14 +1,122 @@
-## 2.1.1数据模型分类
+## 1.1 基本概念
 
-**概念数据模型 CDM**：Conceptual Data Model
+### DB/DBMS/DBS
 
-​	实体-联系模型**E-R**模型
+**DataBase (DB)**：长期存储在计算机内、有组织的、统一管理的相关数据的集合。
 
-**逻辑数据模型 LDM**：Logic Data Model
+**DataBase Management System（DBMS）:** 是位于用户与操作系统之间的一层数据管理软件。
 
-​	层次，网状，关系
+**数据库管理系统的主要功能**
 
-## 2.1.3逻辑数据模型
+1. 数据定义：定义数据库对象
+
+2. 数据操纵：实现对数据的插入、删除、更新、查询等操作
+
+3. 数据库的运行管理
+
+   (1) 并发控制
+
+   (2) 安全性机制和存取权限控制
+
+   (3) 完整性检查
+
+   (4) 事务管理
+
+4. 数据库的建立和维护：数据库备份、故障恢复、数据库的重组、重构以及性能监控
+
+**数据库系统（DataBase System，DBS）：**是采用数据库技术的计算机系统。
+
+### 数据库用户
+
+数据库管理员(DataBase Administrator， DBA)
+
+系统分析员和数据库设计人员
+
+应用程序员 
+
+最终用户 
+
+## 1.2 数据管理技术的发展
+
+### 人工管理
+
+​	数据的管理者：人
+​	数据面向的对象：某一应用程序
+​	数据无共享，冗余度极大
+​	数据不独立，完全依赖程序
+​	数据由应用程序控制
+
+### 文件系统
+
+​	数据面向的对象：某一应用程序
+
+​	数据的管理者：文件系统
+
+​	数据共享差，冗余度大，数据独立性差
+
+​	数据控制能力：应用程序自己控制
+
+​	数据的结构化：记录内有结构，整体无结构
+
+### 数据库管理
+
+​	数据的管理者：数据库管理系统
+
+​	数据面向的对象：整个应用程序
+
+​	数据的共享程度：共享高，冗余度小 
+
+​	数据的独立性：物理独立性和逻辑独立性
+
+​	数据的结构化：整体结构化
+
+​	数据控制能力：数据库管理系统控制
+
+### 高级数据库管理
+
+
+
+**外模式(External Schema)**也称子模式或用户模式
+
+是把现实世界中的信息按照不同用户的观点抽象为多个逻辑数据结构，每个逻辑结构称为一个视图。
+
+描述了每个用户关心的数据，即数据库用户看见和使用的局部数据的逻辑结构和特征的描述。 
+
+**模式(Schema)**也称概念模式或逻辑模式，它是数据库中全体数据的逻辑结构和特征的描述。
+
+模式定义包括数据记录由哪些数据项构成，数据项的名字、类型、取值范围等，与数据有关的安全性、完整性要
+
+求，及这些数据之间的联系。
+
+**内模式(Internal Schema)**也称存储模式，它是数据物理结构和存储结构的描述。
+
+例如，记录的存储方式是顺序存储、按照B树结构存储还是按Hash方法存储；索引按照什么方式组织；数据是否
+
+压缩存储，是否加密；数据的存储记录结构有何规定等。
+
+==三级模式的划分，保证了数据库的数据独立性==
+
+**外模式到模式的映射：**定义了该外模式与模式之间的对应关系。当模式改变时，由数据库管理系统对各个外模式/
+
+模式的映射作相应改变，可以使外模式保持不变，从而应用程序不必修改，保证了数据的逻辑独立性。
+
+**模式到内模式的映射：**定义了数据全局逻辑结构与存储结构之间的对应关系。当数据库的存储结构改变了，由数据
+
+库管理系统对模式/内模式映射作相应改变，可以使模式保持不变，从而保证了数据的物理独立性。
+
+
+
+## 2.1.1 数据模型分类
+
+**概念数据模型 CDM**: Conceptual Data Model
+
+ 实体-联系模型**E-R**模型
+
+**逻辑数据模型 LDM**: Logic Data Model
+
+ 层次，网状，关系
+
+## 2.1.3 逻辑数据模型
 
 ### 数据模型的三要素
 
@@ -29,15 +137,15 @@
 
 优点
 
-​	层次模型的数据结构比较简单清晰。
+ 层次模型的数据结构比较简单清晰。
 
-​	记录之间的联系通过指针实现，查询效率较高。
+ 记录之间的联系通过指针实现，查询效率较高。
 
 缺点
 
-​	现实世界中很多联系是非层次性的，如结点之间具有多对多联系，或者一个结点具有多个双亲结点，不适合层次模型表示。
+ 现实世界中很多联系是非层次性的，如结点之间具有多对多联系，或者一个结点具有多个双亲结点，不适合层次模型表示。
 
-## 2.1.5 网状模型 
+## 2.1.5 网状模型
 
 网状模型（network data model），数据模型是有向图。
 
@@ -49,25 +157,25 @@
 
 优点
 
-​	能更为直接地描述现实世界，M:N联系容易实现
+ 能更为直接地描述现实世界，M:N 联系容易实现
 
-​	记录之间的联系通过指针实现，查询效率较高。
+ 记录之间的联系通过指针实现，查询效率较高。
 
 缺点
 
-​	结构比较复杂，不利于最终用户掌握。
+ 结构比较复杂，不利于最终用户掌握。
 
-​	编写应用程序较复杂，程序员必须熟悉数据库的逻辑结构。
+ 编写应用程序较复杂，程序员必须熟悉数据库的逻辑结构。
 
 ## 2.2 关系模型
 
 关系模型优点：
 
-​	1. 关系模型建立在严格的数学概念基础上。
+ 1. 关系模型建立在严格的数学概念基础上。
 
-​	2. 数据结构简单、清晰，用户易懂易用。
+ 2. 数据结构简单、清晰，用户易懂易用。
 
-​	3. 关系模型的存取路径对用户隐蔽。有更强的数据独立性、更好的安全保密性，简化了程序员的工作。
+ 3. 关系模型的存取路径对用户隐蔽。有更强的数据独立性、更好的安全保密性，简化了程序员的工作。
 
 ## **2.2.3** **关系的键**KEY（码）
 
@@ -90,13 +198,13 @@
 
 **主键 (Primary Key/PK)：**关系中用户选择一个候选键作为插入，删除或检索元组的操作变量，被选用的候选键称为主键。
 
-**外键(Foreign Key/FK)：**是指关系R中的属性A不是关系R的主键，但A是另一个关系S的主键，则属性A就是关系R的外键。其中R是参照关系，S是被参照关系。
+**外键(Foreign Key/FK)：**是指关系 R 中的属性 A 不是关系 R 的主键，但 A 是另一个关系 S 的主键，则属性 A 就是关系 R 的外键。其中 R 是参照关系，S 是被参照关系。
 
-外键在关系R中的取值有两种可能：或为**空值**，或必须是**被参照关系S中已有的属性值**。
+外键在关系 R 中的取值有两种可能：或为**空值**，或必须是**被参照关系 S 中已有的属性值**。
 
 外键值是否允许为空值，主要依赖于应用环境的语义。
 
-## 2.2.4关系规则
+## 2.2.4 关系规则
 
 第一范式(First Normal Form，1NF)
 
@@ -116,11 +224,11 @@
 
 **实体完整性规则：**定义关系中主键的取值不能为空值。
 
-**参照完整性规则：**若属性或属性组F是关系R的外键，它与关系S的主键Ks相对应，则对于R中每个元组在F上的值或者取空值；或者等于S中某个元组的主键值。
+**参照完整性规则：**若属性或属性组 F 是关系 R 的外键，它与关系 S 的主键 Ks 相对应，则对于 R 中每个元组在 F 上的值或者取空值；或者等于 S 中某个元组的主键值。
 
 **用户定义的完整性规则：**针对某一具体关系数据库的约束条件，反映某一具体应用所涉及的数据必须满足的语义要求。
 
-## 2.4.2自然关系运算
+## 2.4.2 自然关系运算
 
 <img src="./assets/image-20241205132625276.png" alt="image-20241205132625276" style="zoom:75%;" />
 
@@ -132,11 +240,11 @@
 
 <img src="./assets/image-20241205132934347.png" alt="image-20241205132934347" style="zoom:50%;" />
 
-采用θ连接表示如下：
+采用 θ 连接表示如下：
 
 <img src="./assets/image-20241205140213829.png" alt="image-20241205140213829" style="zoom:80%;" />
 
-n采用乘法表示如下:
+n 采用乘法表示如下:
 
 <img src="./assets/image-20241205140310660.png" alt="image-20241205140310660" style="zoom:80%;" />
 
@@ -150,7 +258,7 @@ n采用乘法表示如下:
 
 ### 题目
 
-3.设有一个数据库Library，包括Book，Borrow，Reader四个关系模式：
+3.设有一个数据库 Library，包括 Book，Borrow，Reader 四个关系模式：
 
 Book(Bno，Btitle，Bauthor，Bprice)；
 
@@ -158,100 +266,98 @@ Borrow(Rno，Bno，BorrowDate，ReturnDate)；
 
 Reader(Rno，Rname，Rsex，Rage，Reducation)；
 
-图书表Book由图书编号(Bno)、图书名称(Btitle)、图书作者(Bauthor)、图书价格(Bprice)组成；
+图书表 Book 由图书编号(Bno)、图书名称(Btitle)、图书作者(Bauthor)、图书价格(Bprice)组成；
 
-借阅表Borrow由读者编号(Rno)、图书编号(Bno)、借阅时间(BorrowDate)、归还时间(ReturnDate)组成；
+借阅表 Borrow 由读者编号(Rno)、图书编号(Bno)、借阅时间(BorrowDate)、归还时间(ReturnDate)组成；
 
-读者表Reader由读者编号(Rno)、读者姓名(Rname)、读者性别(Rsex)、读者年龄(Rage)、读者学历(Reducation)组成。
+读者表 Reader 由读者编号(Rno)、读者姓名(Rname)、读者性别(Rsex)、读者年龄(Rage)、读者学历(Reducation)组成。
 
-针对数据库Library，用关系代数表达式表示下列查询语句。
+针对数据库 Library，用关系代数表达式表示下列查询语句。
 
-①查询全体读者的姓名(Rname)、出生年份。
+① 查询全体读者的姓名(Rname)、出生年份。
 
-②查询所有年龄在18~20岁(包括18岁和20岁)之间的读者姓名(Rname)及年龄(Rage)。
+② 查询所有年龄在 18~20 岁(包括 18 岁和 20 岁)之间的读者姓名(Rname)及年龄(Rage)。
 
-③查询学历为研究生的读者的编号(Rno)、姓名(Rname)和性别(Rsex)。
+③ 查询学历为研究生的读者的编号(Rno)、姓名(Rname)和性别(Rsex)。
 
-④查询读者的借书情况，要求列出读者姓名，图书标题，借书日期。
+④ 查询读者的借书情况，要求列出读者姓名，图书标题，借书日期。
 
-⑤查询所有读者的基本情况和借书情况，没有借书的读者也输出基本信息。
+⑤ 查询所有读者的基本情况和借书情况，没有借书的读者也输出基本信息。
 
-⑥查询所有借了编号为B02的图书的读者编号(Rno)和读者姓名(Rname)。
+⑥ 查询所有借了编号为 B02 的图书的读者编号(Rno)和读者姓名(Rname)。
 
-⑦查询至少借阅了读者R01借阅的全部书籍的读者编号(Rno)和读者姓名(Rname)。
+⑦ 查询至少借阅了读者 R01 借阅的全部书籍的读者编号(Rno)和读者姓名(Rname)。
 
-⑧查询图书名称包含“数据库” 和价格低于50元的图书的信息。
+⑧ 查询图书名称包含“数据库” 和价格低于 50 元的图书的信息。
 
-## 3.3 MySQL的组件结构
+## 3.3 MySQL 的组件结构
 
 **连接器：**负责跟客户端建立连接、权限校验、获取权限、维持和管理连接。
 
-**分析器：**对SQL的词法和语法进行分析。词法分析是分析出SQL中字符串代表的含义，识别对应的关键字。语法分析是根据语法的规则判断SQL是否满足MySQL的语法。
+**分析器：**对 SQL 的词法和语法进行分析。词法分析是分析出 SQL 中字符串代表的含义，识别对应的关键字。语法分析是根据语法的规则判断 SQL 是否满足 MySQL 的语法。
 
 **优化器：**选择出最优的查询方案，或者重写查询（对一些执行耗费性能的语句，会依据一些规则，尽
- 力转换成某种可高效执行的形式，比如决定表的读取顺序，选择需要的索引等）。
+力转换成某种可高效执行的形式，比如决定表的读取顺序，选择需要的索引等）。
 
 **执行器：**执行优化后的查询方案。执行前要判断当前用户是否有操作表的权限，如果有，则会根据表的存储引擎定义调用相应接口，对数据进行操作；如果无权限则报错。
 
-
-
 **引擎层（存储引擎）：**是对于数据库文件的一种存取机制，如何实现存储数据，如何为存储的数据建立索引以及如何更新、查询数据等技术实现的方法。架构模式是插件式的，支持多个存储引擎。
 
-**InnoDB引擎：**事务型存储引擎，提供对数据库事务的ACID支持，实现SQL标准的四种隔离级别，具有行级锁定，适用于高并发情形及外键支持。MySQL 5.5.5 版本后InnoDB成为了默认存储引擎。
+**InnoDB 引擎：**事务型存储引擎，提供对数据库事务的 ACID 支持，实现 SQL 标准的四种隔离级别，具有行级锁定，适用于高并发情形及外键支持。MySQL 5.5.5 版本后 InnoDB 成为了默认存储引擎。
 
-**MYISAM引擎：**不支持事务，不支持细粒度的锁（行锁）及外键，当表Insert与update时需要锁定整个表，效率低，高并发时可能会遇到瓶颈。
+**MYISAM 引擎：**不支持事务，不支持细粒度的锁（行锁）及外键，当表 Insert 与 update 时需要锁定整个表，效率低，高并发时可能会遇到瓶颈。
 
-MYISAM独立于操作系统，可以在Windows及Linux上使用。MYISAM具有高效的查询速度，插入数据的速度很快，在web、数据仓库等应用环境中常用。
+MYISAM 独立于操作系统，可以在 Windows 及 Linux 上使用。MYISAM 具有高效的查询速度，插入数据的速度很快，在 web、数据仓库等应用环境中常用。
 
-**Memory引擎：**表数据是存储在内存中的，由于会受到硬件问题或断电问题的影响，只能将这些表作为临时表或缓存使用。
+**Memory 引擎：**表数据是存储在内存中的，由于会受到硬件问题或断电问题的影响，只能将这些表作为临时表或缓存使用。
 
-​	特点：
+ 特点：
 
-​	①内存存放，读写速度快
+ ① 内存存放，读写速度快
 
-​	②hash索引（默认）
+ ②hash 索引（默认）
 
 **存储引擎选择：**
 
-​	如果要提供提交、回滚和崩溃恢复能力的事务安全（ACID兼容）能力，并要求实现并发控制，选择InnoDB。
+ 如果要提供提交、回滚和崩溃恢复能力的事务安全（ACID 兼容）能力，并要求实现并发控制，选择 InnoDB。
 
-​	如果数据表主要用来插入和查询记录，则MyISAM引擎能提供较高的处理效率。
+ 如果数据表主要用来插入和查询记录，则 MyISAM 引擎能提供较高的处理效率。
 
-​	如果只是临时存放数据，数据量不大，并且不需要较高的数据安全性，可以选择将数据保存在内存中的Memory引擎。
+ 如果只是临时存放数据，数据量不大，并且不需要较高的数据安全性，可以选择将数据保存在内存中的 Memory 引擎。
 
-## 3.6 MySQL的数据库
+## 3.6 MySQL 的数据库
 
 ### 系统数据库
 
-**mysql：**存储MySQL服务器运行时所需信息的表。包含存储数据库对象元数据的数据字典表、用于其他操作目的的系统表。
+**mysql：**存储 MySQL 服务器运行时所需信息的表。包含存储数据库对象元数据的数据字典表、用于其他操作目的的系统表。
 
-**information_schema：** 提供对数据库元数据、有关MySQL服务器的信息（例如数据库或表的名称、列的数据类型或访问权限）的访问。该数据库包含几个只读表（实际上是视图，而不是基表）。
+**information_schema：** 提供对数据库元数据、有关 MySQL 服务器的信息（例如数据库或表的名称、列的数据类型或访问权限）的访问。该数据库包含几个只读表（实际上是视图，而不是基表）。
 
 **performance_schema：**该数据库的表是不使用持久磁盘存储的内存表，内容在服务器启动时重新填充，并在服务器关闭时丢弃。提供对有关服务器执行的有用信息的访问，同时对服务器性能的影响最小。
 
-**sys：**通过视图的形式把information_schema和performance_schema 结合起来，帮助系统管理员监控MySQL的技术性能。可用于典型的调优和诊断用例。
+**sys：**通过视图的形式把 information_schema 和 performance_schema 结合起来，帮助系统管理员监控 MySQL 的技术性能。可用于典型的调优和诊断用例。
 
 ### 示例数据库
 
 示例数据库既可以用于日常学习和测试，也可以作为设计数据库的一个参考。
 
-**Sakila ：**是一个在线 DVD 出租数据库。提供了actor、film、film_actor等16个表、7个视图、3个存储过程、3个函数。
+**Sakila ：**是一个在线 DVD 出租数据库。提供了 actor、film、film_actor 等 16 个表、7 个视图、3 个存储过程、3 个函数。
 
 **world** 是一个小型的简单数据库，主要用于基础查询测试。
 
-## 4.1 SQL概述
+## 4.1 SQL 概述
 
-### SQL的特点
+### SQL 的特点
 
- **（1）综合统一**
+**（1）综合统一**
 
-​	DQL(Data Query Language，数据查询语言 )
+ DQL(Data Query Language，数据查询语言 )
 
-​	DML(Data Manipulation Language，数据操纵语言)
+ DML(Data Manipulation Language，数据操纵语言)
 
-​	DDL(Data Definition Language，数据定义语言)
+ DDL(Data Definition Language，数据定义语言)
 
-​	DCL(Data Control Language，数据控制语言 ) 
+ DCL(Data Control Language，数据控制语言 )
 
 **（2）非过程化**
 
@@ -261,16 +367,16 @@ MYISAM独立于操作系统，可以在Windows及Linux上使用。MYISAM具有�
 
 **（5）语言简洁**
 
-| SQL功能  | **关键动词**            |
-| :------- | :---------------------- |
-| 数据查询 | SELECT                  |
-| 数据定义 | CREATE,  DROP, ALTER    |
-| 数据操纵 | INSERT,  UPDATE, DELETE |
-| 数据控制 | GRANT,  REVOKE          |
+| SQL 功能 | **关键动词**           |
+| :------- | :--------------------- |
+| 数据查询 | SELECT                 |
+| 数据定义 | CREATE, DROP, ALTER    |
+| 数据操纵 | INSERT, UPDATE, DELETE |
+| 数据控制 | GRANT, REVOKE          |
 
-安全等于`<=>`运算符是MySQL特有的，表示如果两个操作数相等（即使为NULL），值为真。
+安全等于`<=>`运算符是 MySQL 特有的，表示如果两个操作数相等（即使为 NULL），值为真。
 
-### SQL的数据定义语句
+### SQL 的数据定义语句
 
 | 操作对象 | 创建            | 修改           | 删除          |
 | :------- | :-------------- | :------------- | ------------- |
@@ -282,83 +388,81 @@ MYISAM独立于操作系统，可以在Windows及Linux上使用。MYISAM具有�
 
 ## 4.2.1 数据库的相关操作
 
-`COLLATE` 选项指定数据库排序规则。规定字符之间如何排序和比较。排序规则和字符集相关，每种排序规则有多种所支持的字符集，每种字符集都指定一种排序规则为默认值。MySQL支持的字符集排序规则有272个。省略表示采用默认值`utf8mb4_0900_ai_ci`。
+`COLLATE` 选项指定数据库排序规则。规定字符之间如何排序和比较。排序规则和字符集相关，每种排序规则有多种所支持的字符集，每种字符集都指定一种排序规则为默认值。MySQL 支持的字符集排序规则有 272 个。省略表示采用默认值`utf8mb4_0900_ai_ci`。
 
-查看MYSQL支持的字符集
+查看 MYSQL 支持的字符集
 
 `SHOW CHARACTER SET;`
 
-MySQL共支持41种字符集
+MySQL 共支持 41 种字符集
 
-**ASCII编码：**采用一个字节存储编码，只有127个字符被编码到计算机里，包括大小写英文字母、数字和一些符号
+**ASCII 编码：**采用一个字节存储编码，只有 127 个字符被编码到计算机里，包括大小写英文字母、数字和一些符号
 
-**Unicode编码：**中文至少需要两个字节，中国制定了GB2312编码，但全世界有上百种语言，在多语言混合的文本中，显示出来会有乱码。Unicode把所有语言都统一到一套编码里，这样就不会再有乱码问题。现在操作系统和大多数编程语言都直接支持Unicode。
+**Unicode 编码：**中文至少需要两个字节，中国制定了 GB2312 编码，但全世界有上百种语言，在多语言混合的文本中，显示出来会有乱码。Unicode 把所有语言都统一到一套编码里，这样就不会再有乱码问题。现在操作系统和大多数编程语言都直接支持 Unicode。
 
-**UTF-8编码：**可变长编码，把一个Unicode字符编码成1-6个字节，英文字母编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。一般选择UTF-8编码，满足系统运行时可能需要的各类语言编码需求。
+**UTF-8 编码：**可变长编码，把一个 Unicode 字符编码成 1-6 个字节，英文字母编码成 1 个字节，汉字通常是 3 个字节，只有很生僻的字符才会被编码成 4-6 个字节。一般选择 UTF-8 编码，满足系统运行时可能需要的各类语言编码需求。
 
-**utf8mb3和utf8mb4**，区别在于：most bytes 3和most bytes 4，即最多使用3 / 4个字节来表示1个字符。
-
-
+**utf8mb3 和 utf8mb4**，区别在于：most bytes 3 和 most bytes 4，即最多使用 3 / 4 个字节来表示 1 个字符。
 
 ### 表的分类
 
-**基本表(Base Table)：**是实际独立存放在数据库中的表，是实表，在SQL中一个关系就对应一个基本表。
+**基本表(Base Table)：**是实际独立存放在数据库中的表，是实表，在 SQL 中一个关系就对应一个基本表。
 
-**派生表：**派生表是从SELECT语句返回的虚拟表。
+**派生表：**派生表是从 SELECT 语句返回的虚拟表。
 
 **视图**：视图是从一个或几个基本表导出的表。视图是一个虚表。==即数据库中只存放视图的定义而不存放视图对应的数据==
 
-## 4.2.2基本表的相关操作
+## 4.2.2 基本表的相关操作
 
 `create table newtable(id int unsigned,name varchar(64));`
 
-### MySQL的数据类型
+### MySQL 的数据类型
 
-数值类型，日期和时间类型，字符串类型，空间类型和JSON数据类型。
+数值类型，日期和时间类型，字符串类型，空间类型和 JSON 数据类型。
 
-1. 定点类型（精确值）包括 `DECIMAL` 和 `NUMERIC`，这两个是同一个意思，使用numeric定义的列会被转换成decimal。
+1. 定点类型（精确值）包括 `DECIMAL` 和 `NUMERIC`，这两个是同一个意思，使用 numeric 定义的列会被转换成 decimal。
 
-​	例 `salary DECIMAL(5,2)`，5是精度，表示值存储的有效位数，2是小数位数。存储值的范围为-999.99到	999.99。
+ 例 `salary DECIMAL(5,2)`，5 是精度，表示值存储的有效位数，2 是小数位数。存储值的范围为-999.99 到 999.99。
 
-​	`DECIMAL`在不指定精度时，默认整数为10，小数为0,即(10, 0)。
+ `DECIMAL`在不指定精度时，默认整数为 10，小数为 0,即(10, 0)。
 
-​	浮点类型（近似值）包括`FLOAT`和 `DOUBLE`，单精度值`FLOAT`使用四个字节，双精度值`DOUBLE`使用八个字	节。
+ 浮点类型（近似值）包括`FLOAT`和 `DOUBLE`，单精度值`FLOAT`使用四个字节，双精度值`DOUBLE`使用八个字 节。
 
-​	当表需要存储小数，并且有精度要求，比如存储金额时，建议使用`DECIMAL`类型。
+ 当表需要存储小数，并且有精度要求，比如存储金额时，建议使用`DECIMAL`类型。
 
 2. 日期和时间类型：包括`DATE、TIME、DATETIME、TIMESTAMP`和`YEAR`。
 
-   **DATE  :** 用于具有日期部分但没有时间部分的值，以`‘YYYY-MM-DD’`格式检索和显示值。
+   **DATE :** 用于具有日期部分但没有时间部分的值，以`‘YYYY-MM-DD’`格式检索和显示值。
 
    **TIME : **以'hh：mm：ss'格式检索和显示值（或'hhh：mm：ss'格式表示大小时值）。 值的范围可以从`'-838:59:59'` 到 `'838:59:59'`。小时部分不仅可用于表示一天中的时间（必须小于 24 小时），还可以表示两个事件之间的经过时间或时间间隔（可能远大于 24 小时，甚至为负数）。
 
-​	**YEAR ：**用于表示年份值的 1 字节类型。MySQL 以 YYYY 格式显示值，范围为 '1901'到'2155'
+ **YEAR ：**用于表示年份值的 1 字节类型。MySQL 以 YYYY 格式显示值，范围为 '1901'到'2155'
 
-​	**DATETIME（常用）：**用于同时包含日期和时间部分的值,以`‘YYYY-MM-DD hh:mm:ss[.fraction]’`格式检	索和显示值。占用8个字节，从MySQL5.6版本开始， DATETIME支持毫秒， `DATETIME（N）`中的N表示毫秒	的精度。常用的日期函数也能精确到毫秒。
+ **DATETIME（常用）：**用于同时包含日期和时间部分的值,以`‘YYYY-MM-DD hh:mm:ss[.fraction]’`格式检 索和显示值。占用 8 个字节，从 MySQL5.6 版本开始， DATETIME 支持毫秒， `DATETIME（N）`中的 N 表示毫秒 的精度。常用的日期函数也能精确到毫秒。
 
 <img src="./assets/image-20241205151206746.png" alt="image-20241205151206746" style="zoom:33%;" />
 
-​	**时间戳TIMESTAMP**存储的是自`‘1970-01-01 00:00:00’ UTC`（格林尼治标准时间）(北京时间1970年01月	01日08时00分00秒)到现在的秒数。存储范围`‘1970-01-01 00:00:01’ to ‘2038-01-19 03:14:07’`，占	用4个字节
+ **时间戳 TIMESTAMP**存储的是自`‘1970-01-01 00:00:00’ UTC`（格林尼治标准时间）(北京时间 1970 年 01 月 01 日 08 时 00 分 00 秒)到现在的秒数。存储范围`‘1970-01-01 00:00:01’ to ‘2038-01-19 03:14:07’`，占 用 4 个字节
 
-​	**timestamp**类型适合用来记录数据的最后修改时间，可以设置为只要更改了记录中其他字段值，timestamp	字段的值都会被自动更新。
+ **timestamp**类型适合用来记录数据的最后修改时间，可以设置为只要更改了记录中其他字段值，timestamp 字段的值都会被自动更新。
 
-| **完整性约束条件**                                       | **含义**                                         |
-| -------------------------------------------------------- | ------------------------------------------------ |
-| PRIMARY  KEY/KEY                                         | 定义主键                                         |
-| NOT  NULL/NULL                                           | 定义的属性不能取空值/可以空值                    |
-| DEFAULT                                                  | 设置默认值                                       |
-| UNIQUE/UNIQUE  KEY                                       | 定义的属性值必须唯一                             |
-| FOREIGN  KEY(属性名1)REFERENCES   表名[(属性名2)]        | 定义外键                                         |
-| CHECK  (条件表达式)                                      | 定义的属性值须满足CHECK中的条件                  |
-| AUTO_INCREMENT                                           | 设置列为自增属性。                               |
-| {INDEX  \| KEY} [index_name] [index_type] (key_part,...) | 创建索引                                         |
-| CONSTRAINT                                               | 设置约束，主键、唯一键、外键、CHECK 可定义为约束 |
+| **完整性约束条件**                                      | **含义**                                         |
+| ------------------------------------------------------- | ------------------------------------------------ |
+| PRIMARY KEY/KEY                                         | 定义主键                                         |
+| NOT NULL/NULL                                           | 定义的属性不能取空值/可以空值                    |
+| DEFAULT                                                 | 设置默认值                                       |
+| UNIQUE/UNIQUE KEY                                       | 定义的属性值必须唯一                             |
+| FOREIGN KEY(属性名 1)REFERENCES 表名[(属性名 2)]        | 定义外键                                         |
+| CHECK (条件表达式)                                      | 定义的属性值须满足 CHECK 中的条件                |
+| AUTO_INCREMENT                                          | 设置列为自增属性。                               |
+| {INDEX \| KEY} [index_name] [index_type] (key_part,...) | 创建索引                                         |
+| CONSTRAINT                                              | 设置约束，主键、唯一键、外键、CHECK 可定义为约束 |
 
 ```sql
-CREATE TABLE customers (  
+CREATE TABLE customers (
 cid char(4) NOT NULL PRIMARY KEY, -- 列级完整性约束
-cname varchar(30),  
-city varchar(50) ,  
+cname varchar(30),
+city varchar(50) ,
 discnt float  CHECK(discnt>0)
 ) ;
 ```
@@ -367,18 +471,18 @@ discnt float  CHECK(discnt>0)
 -- 创建示例数据库中的订购表ORDERS。
 -- 一个数据库中的约束不允许重名，即同一数据库中表与表之间的约束不能同名
 CREATE TABLE orders
-(ordno char(4) NOT NULL,  
-month varchar(12) DEFAULT (LEFT(MONTHNAME(NOW()), 3)),  
-cid  char(4) NOT NULL,  
-aid char(3) NOT NULL,  
-pid char(3) NOT NULL,  
-qty float DEFAULT 0,  
-dollars float DEFAULT 0,-- 默认值  
+(ordno char(4) NOT NULL,
+month varchar(12) DEFAULT (LEFT(MONTHNAME(NOW()), 3)),
+cid  char(4) NOT NULL,
+aid char(3) NOT NULL,
+pid char(3) NOT NULL,
+qty float DEFAULT 0,
+dollars float DEFAULT 0,-- 默认值
 PRIMARY KEY (ordno), -- 表级完整性约束
-CONSTRAINT aid1 FOREIGN KEY (aid) REFERENCES agents (aid), 
+CONSTRAINT aid1 FOREIGN KEY (aid) REFERENCES agents (aid),
 CONSTRAINT cid1 FOREIGN KEY (cid) REFERENCES customers(cid),
-CONSTRAINT pid1 FOREIGN KEY (pid) REFERENCES products (pid), 
-CONSTRAINT dollars_check1 CHECK (dollars >= 0),  
+CONSTRAINT pid1 FOREIGN KEY (pid) REFERENCES products (pid),
+CONSTRAINT dollars_check1 CHECK (dollars >= 0),
 CONSTRAINT qty_check1 CHECK (qty >= 0) -- 约束
 ) ;
 
@@ -388,28 +492,28 @@ CONSTRAINT qty_check1 CHECK (qty >= 0) -- 约束
 
 （1）只复制表结构，包括主键、索引，但不会复制表数据
 
-CREATE TABLE *new_tbl* LIKE *orig_tbl*;
+CREATE TABLE _new_tbl_ LIKE _orig_tbl_;
 
 **例** `CREATE TABLE customers1 LIKE customers;`
 
 （2）复制表结构及全部数据，但不会复制主键、索引等
 
-CREATE TABLE *new_tbl* [AS] SELECT * FROM *orig_tbl*;
+CREATE TABLE _new_tbl_ [AS] SELECT * FROM *orig_tbl\*;
 
-例：`CREATE TABLE customer2 AS SELECT * FROM customers;` 
+例：`CREATE TABLE customer2 AS SELECT * FROM customers;`
 
-## 4.3 SQL的数据查询功能
+## 4.3 SQL 的数据查询功能
 
-| **查询条件** | **谓词**                                                    |
-| ------------ | ----------------------------------------------------------- |
-| 比较         | =、<=>、>、<、>=、<=、<>、!=                                |
-| 确定范围     | BETWEEN  AND(介于两者之间),NOT  BETWEEN AND(不介于两者之间) |
-| 确定集合     | IN(在其中),NOT  IN(不在其中)                                |
-| 存在         | EXISTS,NOT  EXISTS                                          |
-| 量化比较     | ANY,ALL                                                     |
-| 字符匹配     | LIKE(匹配),NOT  LIKE(不匹配)                                |
-| 空值         | IS  NULL(是空值),IS  NOT NULL(不是空值)                     |
-| 多重条件     | AND(与),OR(或),NOT(非)                                      |
+| **查询条件** | **谓词**                                                  |
+| ------------ | --------------------------------------------------------- |
+| 比较         | =、<=>、>、<、>=、<=、<>、!=                              |
+| 确定范围     | BETWEEN AND(介于两者之间),NOT BETWEEN AND(不介于两者之间) |
+| 确定集合     | IN(在其中),NOT IN(不在其中)                               |
+| 存在         | EXISTS,NOT EXISTS                                         |
+| 量化比较     | ANY,ALL                                                   |
+| 字符匹配     | LIKE(匹配),NOT LIKE(不匹配)                               |
+| 空值         | IS NULL(是空值),IS NOT NULL(不是空值)                     |
+| 多重条件     | AND(与),OR(或),NOT(非)                                    |
 
 ### 查询结果排序
 
@@ -421,7 +525,7 @@ CREATE TABLE *new_tbl* [AS] SELECT * FROM *orig_tbl*;
 
 `order by cname asc;`
 
-对于字符排序，按照排序规则，一般升序指从A到Z的顺序，降序指从Z到A的顺序。
+对于字符排序，按照排序规则，一般升序指从 A 到 Z 的顺序，降序指从 Z 到 A 的顺序。
 
 ### 查询结果分组
 
@@ -429,13 +533,13 @@ CREATE TABLE *new_tbl* [AS] SELECT * FROM *orig_tbl*;
 
 查询每种产品的订购总量。
 
-`select pid, sum(qty) total` 
+`select pid, sum(qty) total`
 
 `from orders group by pid;`
 
-查询满足条件为某个代理商所订购的某种产品的总量超过1000的代理商ID、产品ID和总量。
+查询满足条件为某个代理商所订购的某种产品的总量超过 1000 的代理商 ID、产品 ID 和总量。
 
-`select aid,pid, sum(qty) as total from orders` 
+`select aid,pid, sum(qty) as total from orders`
 
 `group by aid,pid having sum(qty) > 1000;`
 
@@ -444,23 +548,23 @@ CREATE TABLE *new_tbl* [AS] SELECT * FROM *orig_tbl*;
 ### IN
 
 ```sql
-select distinct cid from orders 
-where aid in 
-(select aid from agents 
+select distinct cid from orders
+where aid in
+(select aid from agents
 where city = 'duluth'or city = 'dallas');
 ```
 
 ```sql
-select distinct cid from orders 
-where aid in 
-(select aid from agents 
+select distinct cid from orders
+where aid in
+(select aid from agents
 where city = 'duluth'or city = 'dallas');
 ```
 
 ```sql
-select distinct cid from orders 
-where aid in 
-(select aid from agents 
+select distinct cid from orders
+where aid in
+(select aid from agents
 where city in ('duluth','dallas'));
 ```
 
@@ -470,33 +574,33 @@ where city in ('duluth','dallas'));
 
 ```sql
 Select pname from products
-where pid not in (select pid from orders); 
+where pid not in (select pid from orders);
 ```
 
-查询佣金百分率最小的代理商的aid值。
+查询佣金百分率最小的代理商的 aid 值。
 
 第一种写法：
 
 `select aid from agents where percent<=all`
 
-`(select percent from agents);` 
+`(select percent from agents);`
 
 第二种写法：
 
-`Select aid from agents where` 
+`Select aid from agents where`
 
 `percent = (select min(percent) from agents);`
 
-| 量化比较谓词                         | 含义                           | 量化比较谓词     | 含义                           |
-| ------------------------------------ | ------------------------------ | ---------------- | ------------------------------ |
-| ＞ANY  ＞SOME                        | 大于子查询结果中的某一个值     | ＞ALL            | 大于子查询结果中的所有值       |
-| ＜ANY  ＜SOME                        | 小于子查询结果中的某一个值     | ＜ALL            | 小于子查询结果中的所有值       |
-| ＞＝ANY  ＞＝SOME                    | 大于等于子查询结果中的某一个值 | ＞＝ALL          | 大于等于子查询结果中的所有值   |
-| ＜＝ANY  ＜＝SOME                    | 小于等于子查询结果中的某一个值 | ＜＝ALL          | 小于等于子查询结果中的所有值   |
-| ＝ANY  ＝SOME                        | 等于子查询结果中的某一个值     | ＝ALL            | 等于子查询结果中的所有值       |
-| ！＝ANY或＜＞ANY  ！＝SOME或＜＞SOME | 不等于子查询结果中的某一个值   | ！＝ALL或＜＞ALL | 不等于子查询结果中的任何一个值 |
+| 量化比较谓词                              | 含义                           | 量化比较谓词        | 含义                           |
+| ----------------------------------------- | ------------------------------ | ------------------- | ------------------------------ |
+| ＞ ANY ＞ SOME                            | 大于子查询结果中的某一个值     | ＞ ALL              | 大于子查询结果中的所有值       |
+| ＜ ANY ＜ SOME                            | 小于子查询结果中的某一个值     | ＜ ALL              | 小于子查询结果中的所有值       |
+| ＞＝ ANY ＞＝ SOME                        | 大于等于子查询结果中的某一个值 | ＞＝ ALL            | 大于等于子查询结果中的所有值   |
+| ＜＝ ANY ＜＝ SOME                        | 小于等于子查询结果中的某一个值 | ＜＝ ALL            | 小于等于子查询结果中的所有值   |
+| ＝ ANY ＝ SOME                            | 等于子查询结果中的某一个值     | ＝ ALL              | 等于子查询结果中的所有值       |
+| ！＝ ANY 或＜＞ ANY ！＝ SOME 或＜＞ SOME | 不等于子查询结果中的某一个值   | ！＝ ALL 或＜＞ ALL | 不等于子查询结果中的任何一个值 |
 
-### 带有EXISTS谓词的子查询
+### 带有 EXISTS 谓词的子查询
 
 语法格式为：
 
@@ -504,16 +608,16 @@ EXISTS (子查询)
 
 当且仅当子查询返回的集合存在元素，即非空，其值为真。
 
-带有exists谓词的子查询不返回任何数据，只产生逻辑真值true或逻辑假值false，子查询给出列名无实际意义。
+带有 exists 谓词的子查询不返回任何数据，只产生逻辑真值 true 或逻辑假值 false，子查询给出列名无实际意义。
 
-由于带exists谓词的相关子查询只关心内层查询是否有返回值，并不需要具体查询值，有时候是高效的方法。
+由于带 exists 谓词的相关子查询只关心内层查询是否有返回值，并不需要具体查询值，有时候是高效的方法。
 
-e.g. 查询既订购了产品p01又订购了产品p07的顾客的cid。
+e.g. 查询既订购了产品 p01 又订购了产品 p07 的顾客的 cid。
 
 ```sql
-select distinct cid from orders x 
+select distinct cid from orders x
 where pid='p01' and exists
-(select * from orders 
+(select * from orders
 where cid=x.cid and pid='p07');
 ```
 
@@ -521,26 +625,26 @@ where cid=x.cid and pid='p07');
 
 NOT EXISTS (子查询)
 
-e.g. 当且仅当子查询返回的集合不存在元素，即为空，其值为真。查询没有通过代理商a05订货的所有顾客的名字。
+e.g. 当且仅当子查询返回的集合不存在元素，即为空，其值为真。查询没有通过代理商 a05 订货的所有顾客的名字。
 
 ```sql
-select distinct c.cname from customers c 
-where not exists 
+select distinct c.cname from customers c
+where not exists
 (select * from orders x
 where c.cid=x.cid and x.aid='a05');
 ```
 
-### 关于EXISTS子查询的说明：
+### 关于 EXISTS 子查询的说明：
 
-1) 一些带EXISTS或NOT EXISTS谓词的子查询不能被其它形式的子查询等价替换。
+1. 一些带 EXISTS 或 NOT EXISTS 谓词的子查询不能被其它形式的子查询等价替换。
 
-2) 所有带IN谓词、比较运算符、SOME(ANY)和ALL谓词的子查询都能用带EXISTS谓词的子查询等价替换。
+2. 所有带 IN 谓词、比较运算符、SOME(ANY)和 ALL 谓词的子查询都能用带 EXISTS 谓词的子查询等价替换。
 
-3) [NOT] EXISTS子查询的效率要优于连接查询和集合查询（IN谓词查询）。
+3. [NOT] EXISTS 子查询的效率要优于连接查询和集合查询（IN 谓词查询）。
 
-## 4.3.5 复杂查询 
+## 4.3.5 复杂查询
 
-查询订购了所有产品的顾客的cid值。
+查询订购了所有产品的顾客的 cid 值。
 
 <img src="./assets/image-20241205210007525.png" alt="image-20241205210007525" style="zoom:70%;" />
 
@@ -548,23 +652,23 @@ where c.cid=x.cid and x.aid='a05');
 
 <img src="./assets/image-20241205210733089.png" alt="image-20241205210733089" style="zoom:70%;" />
 
-第一步：用SQL语句描述反例：有一个产品我们的候选顾客没有订购；
+第一步：用 SQL 语句描述反例：有一个产品我们的候选顾客没有订购；
 
-`select pid from products x` 
+`select pid from products x`
 
-`where not exists` 
+`where not exists`
 
- `(select * from orders y` 
+`(select * from orders y`
 
- `where x.pid = y.pid and y.cid = ？.cid)`
+`where x.pid = y.pid and y.cid = ？.cid)`
 
-第二步：用SQL语句描述不存在反例。
+第二步：用 SQL 语句描述不存在反例。
 
 `not exists`
 
-`(select pid from products x where not exists` 
+`(select pid from products x where not exists`
 
-`(select * from orders y` 
+`(select * from orders y`
 
 `where x.pid = y.pid and y.cid = ？.cid))`
 
@@ -573,40 +677,40 @@ where c.cid=x.cid and x.aid='a05');
 ```sql
 select c.cid from customers c
 where not exists
-(select pid from products x where not exists 
+(select pid from products x where not exists
 (select * from orders y
 	where x.pid = y.pid and y.cid = c.cid))
 ```
 
-对于需要用关系代数除法解决的查询问题，转换成SQL语句的一般形式为：
+对于需要用关系代数除法解决的查询问题，转换成 SQL 语句的一般形式为：
 
 `Select …… where NOT EXISTS(select …… where NOT EXISTS(select …… ))；`
 
- 查询被所有居住在New York的顾客订购的产品的pid。
+查询被所有居住在 New York 的顾客订购的产品的 pid。
 
-`select pid from products p` 
+`select pid from products p`
 
-`where not exists` 
+`where not exists`
 
-`(select cid from customers c` 
+`(select cid from customers c`
 
-`where c.city = 'new york' and not exists` 
+`where c.city = 'new york' and not exists`
 
-`(select * from orders x` 
+`(select * from orders x`
 
 `where x.pid = p.pid and x.cid = c.cid));`
 
-## 4.4 SQL的数据操纵功能
+## 4.4 SQL 的数据操纵功能
 
 ### 更新数据
 
-将所有订货总金额超过2000的顾客的折扣率增加10%。
+将所有订货总金额超过 2000 的顾客的折扣率增加 10%。
 
 ```sql
-update customers 
-set discnt=discnt*1.1 
-where cid in 
-	(select cid from orders 
+update customers
+set discnt=discnt*1.1
+where cid in
+	(select cid from orders
 	group by cid having sum(dollars)>2000);
 ```
 
@@ -614,22 +718,22 @@ where cid in
 
 单表删除命令格式为：
 DELETE FROM <表名> [WHERE<条件>]
-【例45】 删除数据表agents中的居住在“New York”的所有代理商的记录。
+【例 45】 删除数据表 agents 中的居住在“New York”的所有代理商的记录。
 `delete from agents  
 where city = 'new york'`
-【例46】 删除所有没有人订购的产品。
+【例 46】 删除所有没有人订购的产品。
 `delete from products
 where pid not in (select pid from orders)`
 
 删除表中所有数据
-`delete from agents;` 
+`delete from agents;`
 `delete`是逐行删除，速度极慢，不适合大量数据删除。
 `TRUNCATE TABLE table_name;`
 `TRUNCATE`删除所有数据，保留表结构，适合删除拥有大量数据的表
-如使用InnoDB，在删除数据之前检查表中是否有可用的外键约束。如果外键约束指定DELETE CASCADE，则子表中的相应行也将被删除。否则将逐个删除行，遇到由子表中的行引用的行时，将停止并发出错误。
-如果表没有任何外键约束，则TRUNCATE TABLE语句将删除该表并重新创建一个具有相同结构的新表
+如使用 InnoDB，在删除数据之前检查表中是否有可用的外键约束。如果外键约束指定 DELETE CASCADE，则子表中的相应行也将被删除。否则将逐个删除行，遇到由子表中的行引用的行时，将停止并发出错误。
+如果表没有任何外键约束，则 TRUNCATE TABLE 语句将删除该表并重新创建一个具有相同结构的新表
 
-## 4.5视图
+## 4.5 视图
 
 **视图(VIEW):**是从一个或几个基本表(或视图)导出的一个虚拟表。数据库中只存放了视图的定义。
 
@@ -637,39 +741,39 @@ where pid not in (select pid from orders)`
 
 **优点：**
 
-提高安全性。  
+提高安全性。
 
-重复利用SQL语句，简化操作。
+重复利用 SQL 语句，简化操作。
 
 逻辑数据独立性。
 
-CREATE VIEW *view_name* [<*column_name*>[,< *column_name* >][ ,...n )] 
+CREATE VIEW _view_name_ [<_column_name_>[,< _column_name_ >][ ,...n )]
 
-AS *select_statement* [WITH CHECK OPTION]
+AS _select_statement_ [WITH CHECK OPTION]
 
 ==WITH CHECK OPTION==：对视图进行更新操作时要保证更新的行满足视图查询语句中的条件表达式。
 
 表和视图共享数据库中相同的名称空间，因此，数据库不能包含具有相同名称的表和视图。
 
-创建一个视图custp01，列出订购了产品p01的顾客编号、姓名、产品编号、产品数量和总金额。
+创建一个视图 custp01，列出订购了产品 p01 的顾客编号、姓名、产品编号、产品数量和总金额。
 
 ```sql
-create view custp01 
+create view custp01
 As select c.cid,cname,pid,qty,dollars
 from customers c, orders o
 where c.cid = o.cid and o.pid ='p01';
 ```
 
-建立一个视图，查询折扣率小于15的顾客信息。
+建立一个视图，查询折扣率小于 15 的顾客信息。
 
 ```sql
 create view cust1 as
-select * from customers 
-where discnt<15; 
+select * from customers
+where discnt<15;
 
-create view cust2 as 
-select * from customers 
-where discnt<15 with check option; 
+create view cust2 as
+select * from customers
+where discnt<15 with check option;
 ```
 
 视图分为只读视图、可更新视图和可插入视图
@@ -689,8 +793,8 @@ where discnt<15 with check option;
 不能有重复的视图列名称。
 该视图必须包含基表中没有缺省值的所有列。
 视图列必须是简单的列引用。它们不能是表达式，例如：
-3.14159 
-col1 + 3 
+3.14159
+col1 + 3
 UPPER(col2)
 
 ## 4.6 索引
@@ -710,7 +814,7 @@ UPPER(col2)
 
 2. 当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，降低了数据的维护速度。
 
-### MySQL索引类型
+### MySQL 索引类型
 
 根据索引的具体用途，在逻辑上分为 5 类：
 
@@ -724,7 +828,7 @@ UPPER(col2)
 3. 主键索引：一种特殊的唯一索引，不允许值重复或者为空。创建主键索引在创建表时使用 PRIMARY KEY ，不能使用 CREATE INDEX 语句创建。
    `CREATE TABLE tablename ([...], PRIMARY KEY (字段名) );`
    `ALTER TABLE tablename ADD PRIMARY KEY (字段名);`
-4. 空间索引：是对空间数据类型GEOMETRY的字段建立的索引，使用 SPATIAL 关键字进行扩展。
+4. 空间索引：是对空间数据类型 GEOMETRY 的字段建立的索引，使用 SPATIAL 关键字进行扩展。
    `create SPATIAL index indexname on tablename (字段名称);`
    `alert table tablename add SPATIAL index [索引的名字] (字段名);`
 
@@ -733,29 +837,27 @@ UPPER(col2)
    `ALTER TABLE tablename ADD FULLTEXT [索引的名字] (字段名);`
 
 **从数据存储和索引键值逻辑关系划分：聚集（聚簇）索引、非聚集（聚簇）索引**
-InnoDB的聚簇索引按照主键顺序构建 B+Tree结构。在叶子节点行记录和主键值紧凑地存储在一起。
+InnoDB 的聚簇索引按照主键顺序构建 B+Tree 结构。在叶子节点行记录和主键值紧凑地存储在一起。
 
-InnoDB的表要求必须要有**聚簇索引：**
+InnoDB 的表要求必须要有**聚簇索引：**
 
 如果表定义了主键，则主键索引就是**聚簇索引**
 
-如果表没有定义主键，则第一个非空unique列作为聚簇索引
+如果表没有定义主键，则第一个非空 unique 列作为聚簇索引
 
-否则InnoDB会建一个隐藏的row-id作为聚簇索引
+否则 InnoDB 会建一个隐藏的 row-id 作为聚簇索引
 
-**非聚集索引：**根据索引列构建 B+Tree结构。但在 B+Tree 的叶子节点中只存了索引列和主键的信息。
+**非聚集索引：**根据索引列构建 B+Tree 结构。但在 B+Tree 的叶子节点中只存了索引列和主键的信息。
 
 一个表可以创建多个非聚集索引。
 
-**回表查询：**通过非聚集索引（InnoDB辅助索引）无法直接定位行记录，通常情况下，需要扫描两遍索引树。先通
+**回表查询：**通过非聚集索引（InnoDB 辅助索引）无法直接定位行记录，通常情况下，需要扫描两遍索引树。先通
 
 过辅助索引定位主键值，然后再通过聚簇索引定位行记录，叫做回表查询，它的性能比扫一遍索引树低。
 
-**索引覆盖：**只需要在一棵索引树上就能获取SQL所需的所有列数据，无需回表，速度更快，叫做索引覆盖。 实现
+**索引覆盖：**只需要在一棵索引树上就能获取 SQL 所需的所有列数据，无需回表，速度更快，叫做索引覆盖。 实现
 
 索引覆盖最常见的方法就是：将被查询的字段，建立成组合索引。
-
-
 
 **一般来说，应该在这些列上创建索引：**
 
@@ -767,11 +869,11 @@ InnoDB的表要求必须要有**聚簇索引：**
 
 经常需要根据范围进行搜索的列上创建索引；
 
-如date>”20050101” and date< “20050131”；
+如 date>”20050101” and date< “20050131”；
 
 经常需要排序的列上创建索引；
 
-经常使用在WHERE子句中的列创建索引。
+经常使用在 WHERE 子句中的列创建索引。
 
 **一般来说，不应该创建索引的列：**
 
@@ -779,21 +881,21 @@ InnoDB的表要求必须要有**聚簇索引：**
 
 那些只有很少数据值的列也不应该创建索引。
 
-定义为text, bit数据类型的列不应该创建索引。
+定义为 text, bit 数据类型的列不应该创建索引。
 
 当修改性能远远大于检索性能时，不应该创建索引。
 
-## 5.1数据库的完整性
+## 5.1 数据库的完整性
 
 ### 完整性规则
 
-为维护数据库的完整性，DBMS必须设计：
+为维护数据库的完整性，DBMS 必须设计：
 
-触发条件：规定系统什么时候使用规则来检查数据。 
+触发条件：规定系统什么时候使用规则来检查数据。
 
-约束条件：检查用户发出的操作请求违背了什么样的完整性约束条件。 
+约束条件：检查用户发出的操作请求违背了什么样的完整性约束条件。
 
-违约响应：规定系统如果发现用户的操作违约时要做的事情。 
+违约响应：规定系统如果发现用户的操作违约时要做的事情。
 
 实体完整性：通过主键来标识某个独一无二的实体
 
@@ -801,15 +903,13 @@ InnoDB的表要求必须要有**聚簇索引：**
 
 用户定义的完整性：针对某一具体字段的数据要求
 
-
-
 ### 实体完整性
 
 主键保证，主键唯一，且不能为空
 
-建表时用PRIMARY KEY定义。
+建表时用 PRIMARY KEY 定义。
 
-ALTER TABLE也可以增加主键约束。
+ALTER TABLE 也可以增加主键约束。
 
 判断主键唯一，一般需要全表扫描，但这样太过耗时，因此关系系统一般在主键上自动建立一个索引
 
@@ -827,11 +927,11 @@ ALTER TABLE也可以增加主键约束。
 
 针对某一具体应用的数据必须满足的语义要求。
 
-在建表或修改表结构时，可以根据要求定义属性上的约束条件，如N`OT NULL、UNIQUE、DEFAULT、CHECK()、auto_increment`等。
+在建表或修改表结构时，可以根据要求定义属性上的约束条件，如 N`OT NULL、UNIQUE、DEFAULT、CHECK()、auto_increment`等。
 
 ### 触发器
 
-触发器是一种特殊的存储过程，是由事件来触发某个操作。当数据库执行UPDATE，INSERT和DELETE等事件时，
+触发器是一种特殊的存储过程，是由事件来触发某个操作。当数据库执行 UPDATE，INSERT 和 DELETE 等事件时，
 
 就会激活触发器执行相应的操作。这些事件称为触发条件。
 
@@ -847,28 +947,26 @@ ALTER TABLE也可以增加主键约束。
 
 **同步实时**地复制表中的数据。
 
-**主动计算数据值**，假设数据的值达到了一定的要求，则进行特定的处理。比如，假设公司的帐号上的资金低于5万
+**主动计算数据值**，假设数据的值达到了一定的要求，则进行特定的处理。比如，假设公司的帐号上的资金低于 5 万
 
 元则马上给財务人员发送警告数据。
 
 #### 触发器缺点
 
-触发器定义在表上，在SQL语句执行前/后触发，针对每一行执行，因此在对增删改查频繁的表上不建议使用触发器，除非确定触发器是非常高效的。
+触发器定义在表上，在 SQL 语句执行前/后触发，针对每一行执行，因此在对增删改查频繁的表上不建议使用触发器，除非确定触发器是非常高效的。
 
 触发器能在一定程度上减少代码的编写，但其满足条件自动触发，增加了系统复杂性，使排错更加费时。
 
 不能提升系统的性能，相反还可能降低数据库性能，在业务复杂的时候还可能造成死锁。
 
-
-
 **BEFORE/AFTER：**触发器被触发的时刻。**BEFORE**指触发器在触发事件之前发生，**AFTER**指触发器在触发事件之后发生。
 
-e.g. 建立一个触发器，当向orders表中插入一个新订单时被触发，自动更新products表的quantity列，即把在orders表中指定的qty从products表相应行的quantity中减去。
+e.g. 建立一个触发器，当向 orders 表中插入一个新订单时被触发，自动更新 products 表的 quantity 列，即把在 orders 表中指定的 qty 从 products 表相应行的 quantity 中减去。
 
 ```sql
 DELIMITER $
 DROP TRIGGER IF EXISTS ortri1$
-CREATE TRIGGER ortri1 AFTER INSERT ON orders 
+CREATE TRIGGER ortri1 AFTER INSERT ON orders
 FOR EACH ROW
 BEGIN
 UPDATE products SET quantity=quantity-new.qty WHERE pid = new.pid;
@@ -882,13 +980,13 @@ FOR EACH ROW：行级触发，受触发事件影响的每一行都要激活触�
 
 ### 数据库安全性
 
-​	保护数据库防止恶意破坏和非法的存取
+ 保护数据库防止恶意破坏和非法的存取
 
-​	防范对象是非法用户和非法操作
+ 防范对象是非法用户和非法操作
 
 非法使用数据库的情况：
 
-1. 编写一段合法程序绕过DBMS及其授权机制，通过操作系统直接存取、修改或备份数据库数据；
+1. 编写一段合法程序绕过 DBMS 及其授权机制，通过操作系统直接存取、修改或备份数据库数据；
 
 2. 直接或编写应用程序执行非授权操作；
 
@@ -896,21 +994,21 @@ FOR EACH ROW：行级触发，受触发事件影响的每一行都要激活触�
 
 ### 数据库安全性控制的常用方法
 
-1) 用户标识与鉴定
+1. 用户标识与鉴定
 
-​	系统提供的最外层安全保护措施
+ 系统提供的最外层安全保护措施
 
-​	基本方法
+ 基本方法
 
-​	系统提供一定的方式让用户标识自己的名字或身份；
+ 系统提供一定的方式让用户标识自己的名字或身份；
 
-​	系统内部记录着所有合法用户的标识；
+ 系统内部记录着所有合法用户的标识；
 
-​	每次用户要求进入系统时，由系统核对用户提供的身份标识；
+ 每次用户要求进入系统时，由系统核对用户提供的身份标识；
 
-​	通过鉴定后才提供机器使用权。
+ 通过鉴定后才提供机器使用权。
 
-​	用户标识和鉴定可以重复多次。
+ 用户标识和鉴定可以重复多次。
 
 2. 存取控制
 
@@ -930,7 +1028,7 @@ FOR EACH ROW：行级触发，受触发事件影响的每一行都要激活触�
 
 角色和用户比较：
 
-创建时都会在mysql.user表中创建记录
+创建时都会在 mysql.user 表中创建记录
 
 角色没有密码，且是被锁定状态，不能登录
 
@@ -951,32 +1049,32 @@ SET DEFAULT ROLE
     {NONE | ALL | role [, role ] ...}
     TO user [, user ] ...
 -- 单个激活
-SET DEFAULT ROLE ALL TO 'zhangsan'@'localhost'; 
+SET DEFAULT ROLE ALL TO 'zhangsan'@'localhost';
 --  批量激活
 SET DEFAULT ROLE ALL TO 'dev1'@'localhost','read_user1'@'localhost','read_user2'@'localhost‘;
 ```
 
 ### 存取控制机制的功能
 
-确保只授权给有资格的用户访问DB的权限。
+确保只授权给有资格的用户访问 DB 的权限。
 
 存取控制机制的组成
 
- 定义存取权限
+定义存取权限
 
- 检查存取权限
+检查存取权限
 
-用户权限定义和合法权检查机制一起组成了DBMS的安全子系统。
+用户权限定义和合法权检查机制一起组成了 DBMS 的安全子系统。
 
-DBMS所采取的存取控制策略主要有两种:
+DBMS 所采取的存取控制策略主要有两种:
 
-**自主存取控制(Discretionary Access Control ，简称DAC）:**用户对于不同的数据库对象有不同的存取权限,不同的
+**自主存取控制(Discretionary Access Control ，简称 DAC）:**用户对于不同的数据库对象有不同的存取权限,不同的
 
 用户对同一对象也有不同的权限,而且用户还可将其拥有的存取权限转授给其他用户。
 
 自主存取控制灵活,常用。
 
-标准SQL提供了自主存取控制的语句，即GRANT/REVOKE
+标准 SQL 提供了自主存取控制的语句，即 GRANT/REVOKE
 
 **强制存取控制 （Mandatory Access Control，简称 MAC）:**
 
@@ -984,7 +1082,7 @@ DBMS所采取的存取控制策略主要有两种:
 
 对于任意一个对象,只有具有合法许可证的用户才可以存取。
 
-强制存取控制相对比较严格，只在某些专用系统中有用,例如军事部门或政府部门。 
+强制存取控制相对比较严格，只在某些专用系统中有用,例如军事部门或政府部门。
 
 ### 视图机制
 
@@ -996,17 +1094,17 @@ DBMS所采取的存取控制策略主要有两种:
 
 对视图定义存取权限。
 
-### 审计Audit
+### 审计 Audit
 
 启用一个专用的审计日志（Audit Log），跟踪和记录用户对数据库的所有操作；
 
-DBA可以利用审计日志中的追踪信息，找出非法存取数据的用户；
+DBA 可以利用审计日志中的追踪信息，找出非法存取数据的用户；
 
 审计很费时间和空间；
 
-DBA可以根据应用对安全性的要求，灵活地打开或关闭审计功能。
+DBA 可以根据应用对安全性的要求，灵活地打开或关闭审计功能。
 
-MySQL社区版是不带审计功能
+MySQL 社区版是不带审计功能
 
 ### 数据加密
 
@@ -1018,37 +1116,37 @@ MySQL社区版是不带审计功能
 
 `SELECT * FROM mysql.user;`
 
-## 6.1.1变量的定义和使用
+## 6.1.1 变量的定义和使用
 
-局部变量通过set语句赋值
+局部变量通过 set 语句赋值
 
-set var_name=expr [, var_name=expr]…; 
+set var_name=expr [, var_name=expr]…;
 
 例 declare x,y int;
 
-   set x=1,y=2;
+set x=1,y=2;
 
-用select … into…形式赋值
+用 select … into…形式赋值
 
 select col_name[,...] into var_name[,...] FROM table_expr [where...];
 
-例 select count(*) into total_cus FROM customers;
+例 select count(\*) into total_cus FROM customers;
 
 用户变量：在客户端链接到数据库实例整个过程中用户变量都是有效的。
 
-MySQL中用户变量不用事前声明，直接用“@变量名”使用就可以。用户变量名必须以@开头。
+MySQL 中用户变量不用事前声明，直接用“@变量名”使用就可以。用户变量名必须以@开头。
 
-第一种用法：set @num=1; 或set @num:=1; 
+第一种用法：set @num=1; 或 set @num:=1;
 
 第二种用法：select @num:=1; 或 select @num:=字段名 from 表名 where ……，
 
-select语句用来输出用户变量
+select 语句用来输出用户变量
 
 系统变量 分为全局变量与会话变量。
 
-全局变量在MySQL启动的时候由服务器自动初始化为默认值，可以通过更改my.ini来更改。
+全局变量在 MySQL 启动的时候由服务器自动初始化为默认值，可以通过更改 my.ini 来更改。
 
-会话变量在每次建立一个新的连接时，由MySQL初始化，将当前所有全局变量的值复制一份，作为会话变量。
+会话变量在每次建立一个新的连接时，由 MySQL 初始化，将当前所有全局变量的值复制一份，作为会话变量。
 
 全局变量与会话变量的区别：
 
@@ -1056,17 +1154,17 @@ select语句用来输出用户变量
 
 对会话变量的修改，只会影响到当前的会话（即当前的数据库连接）。
 
-### IF语句
+### IF 语句
 
 ```sql
 IF age>20 THEN SET @count1=@count1+1;
-    ELSEIF age=20 THEN 
+    ELSEIF age=20 THEN
       set @count2=@count2+1;
     ELSE set @count3=@count3+1;
 END lF;
 ```
 
-### CASE语句
+### CASE 语句
 
 ```sql
 CASE age
@@ -1082,7 +1180,7 @@ END CASE;
 
 ### LOOP 语句
 
-可以使某些特定的语句重复执行。LOOP 语句本身没有停止循环的语句，必须使用 LEAVE等语句才能停止循环，
+可以使某些特定的语句重复执行。LOOP 语句本身没有停止循环的语句，必须使用 LEAVE 等语句才能停止循环，
 
 跳出循环过程。
 
@@ -1154,61 +1252,61 @@ END WHILE;
 
 **存储过程**可包含程序流、逻辑以及对数据库的查询。可以接受参数、输出参数、返回单个或多个结果集。
 
-触发器、其他存储过程以及Java，Python，PHP等应用程序可以调用存储过程
+触发器、其他存储过程以及 Java，Python，PHP 等应用程序可以调用存储过程
 
-**存储过程**一般可以嵌套，即一个存储过程可以调用另一个存储过程，但MySQL不支持递归存储过程。
+**存储过程**一般可以嵌套，即一个存储过程可以调用另一个存储过程，但 MySQL 不支持递归存储过程。
 
 ### 存储过程的优点
 
 **允许模块化程序设计**，存储过程对任何应用程序都是可重用的和透明的。
 
-**有助于提高应用程序的性能**。MySQL存储过程按需编译，并在高速缓存中保留存储过程的编译版本，以便以后使
+**有助于提高应用程序的性能**。MySQL 存储过程按需编译，并在高速缓存中保留存储过程的编译版本，以便以后使
 
-用，从而缩短了执行时间。 
+用，从而缩短了执行时间。
 
 **减少网络流量**。
 
-**可作为安全机制使用**。DBA可以向访问数据库中存储过程的应用程序授予适当的权限，而不向基础数据库表提供
+**可作为安全机制使用**。DBA 可以向访问数据库中存储过程的应用程序授予适当的权限，而不向基础数据库表提供
 
 任何权限。
 
-创建存储过程proc_Qcustomer：通过顾客的cid来查询顾客的姓名、城市和这个顾客的折扣。
+创建存储过程 proc_Qcustomer：通过顾客的 cid 来查询顾客的姓名、城市和这个顾客的折扣。
 
 ```sql
 DELIMITER $$
 CREATE PROCEDURE proc_Qcustomer (IN in_cid char(4),OUT out_cname varchar(30),OUT out_city varchar(50),OUT out_discnt float)
-begin 
+begin
 SELECT cname, city, discnt into out_cname, out_city, out_discnt FROM customers WHERE cid = in_cid;
 End$$
 DELIMITER ;
 ```
 
-创建存储过程customerLevel，通过顾客的cid计算顾客购买的全部商品的总金额，根据总金额设置用户级别，如
+创建存储过程 customerLevel，通过顾客的 cid 计算顾客购买的全部商品的总金额，根据总金额设置用户级别，如
 
-果总金额大于3000，顾客等级为A，总金额大于1000并且小于等于3000，顾客等级为B，总金额小于1000，顾客
+果总金额大于 3000，顾客等级为 A，总金额大于 1000 并且小于等于 3000，顾客等级为 B，总金额小于 1000，顾客
 
-等级为C，从来未购买商品的顾客，等级为D。
+等级为 C，从来未购买商品的顾客，等级为 D。
 
 ```sql
 DELIMITER $$
-CREATE PROCEDURE customerLevel(in  p_customerNumber char(4),     out p_customerLevel  char(2))    
-BEGIN    
-DECLARE totaldollar float; --局部变量   
-SELECT sum(dollars) INTO totaldollar    FROM orders     WHERE cid=p_customerNumber;    
-IF totaldollar > 3000 THEN    
-set p_customerLevel='A';    
-ELSEIF (totaldollar  >= 1000) THEN    
-set p_customerLevel='B';    
-ELSEIF totaldollar < 1000 THEN    
-set p_customerLevel='C';    
-elseif totaldollar is null then   
- set p_customerLevel='D';   
- END IF;    
+CREATE PROCEDURE customerLevel(in  p_customerNumber char(4),     out p_customerLevel  char(2))
+BEGIN
+DECLARE totaldollar float; --局部变量
+SELECT sum(dollars) INTO totaldollar    FROM orders     WHERE cid=p_customerNumber;
+IF totaldollar > 3000 THEN
+set p_customerLevel='A';
+ELSEIF (totaldollar  >= 1000) THEN
+set p_customerLevel='B';
+ELSEIF totaldollar < 1000 THEN
+set p_customerLevel='C';
+elseif totaldollar is null then
+ set p_customerLevel='D';
+ END IF;
 end$$
 DELIMITER ;
 ```
 
-### MySQL使用存储过程返回表
+### MySQL 使用存储过程返回表
 
 ```sql
 DELIMITER //
@@ -1231,7 +1329,7 @@ DELIMITER ;
 
 减少网络流量。
 
-使用灵活。 
+使用灵活。
 
 ### 存储过程和函数的区别
 
@@ -1241,7 +1339,7 @@ DELIMITER ;
 
 函数在系统启动时就进行编译并加载，存储过程在调用时才加载。
 
-MySQL 支持两种函数类型： 
+MySQL 支持两种函数类型：
 
 系统函数（内置函数）： 系统定义且不能修改。
 
@@ -1260,13 +1358,13 @@ MySQL 支持两种函数类型：
 
 6. 加密函数
 
-7. 信息函数 
-8. 其他函数 
+7. 信息函数
+8. 其他函数
 9. 聚合函数
 
 returnVarType: 返回值类型。函数必须有且只能有一个返回值
 
-创建一个函数F_Price ，要求：根据顾客姓名和商品名，查询顾客订购该商品的总价。 
+创建一个函数 F_Price ，要求：根据顾客姓名和商品名，查询顾客订购该商品的总价。
 
 ```sql
 USE sales;
@@ -1276,34 +1374,40 @@ CREATE FUNCTION F_Price (in_cname char(50),in_pname char(50))
 RETURNS float
 READS SQL DATA    -- 意为函数体包含读数据sql语句
 RETURN (SELECT sum(dollars) FROM orders,customers,products
-        WHERE orders.cid=customers.cid 
-		AND orders.pid=products.pid 
-        AND customers.cname=in_cname 
+        WHERE orders.cid=customers.cid
+		AND orders.pid=products.pid
+        AND customers.cname=in_cname
 		AND products.pname=in_pname) $$
 DELIMITER ;
 ```
 
 ## 6.4 游标
 
-游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果，是一种临时的数据库对象。
+游标是系统为用户开设的一个数据缓冲区，存放 SQL 语句的执行结果，是一种临时的数据库对象。
 
 游标可以对结果集中的每一条记录进行定位，并对指向的记录中的数据进行操作，充当了指针的作用
 
-每个游标区都有一个名字 
+每个游标区都有一个名字
 
-MySQL中游标可以在存储过程和函数中使用
+MySQL 中游标可以在存储过程和函数中使用
 
-用户也可以用SQL语句逐一从游标中获取记录，并赋给变量，交由高级程序设计语言进一步处理。
+用户也可以用 SQL 语句逐一从游标中获取记录，并赋给变量，交由高级程序设计语言进一步处理。
 
 ## 7.1 事务
 
-MySQL使用下列语句来管理事务：
+**事务(TRANSACTION)**是作为单个逻辑工作单元执行的一系列操作。
+
+这些操作作为一个整体一起向系统提交，要么都执行、要么都不执行 。
+
+事务是一个不可分割的工作逻辑单元 。 
+
+MySQL 使用下列语句来管理事务：
 
 开始事务：`START TRANSACTION` 或 `BEGIN`
 
-提交事务：`COMMIT` 
+提交事务：`COMMIT`
 
-回滚（撤销）事务：`ROLLBACK` 
+回滚（撤销）事务：`ROLLBACK`
 
 一旦事务提交或回滚，则事务结束。
 
@@ -1317,9 +1421,9 @@ MySQL使用下列语句来管理事务：
 
 ### 事务的分类：
 
-显式事务：用START TRANSACTION 或 BEGIN明确指定事务的开始，这是最常用的事务类型
+显式事务：用 START TRANSACTION 或 BEGIN 明确指定事务的开始，这是最常用的事务类型
 
-隐性事务：是 MySQL的默认模式，将每条单独的 SQL 语句视为一个事务，如果成功执行，则自动提交；如果错
+隐性事务：是 MySQL 的默认模式，将每条单独的 SQL 语句视为一个事务，如果成功执行，则自动提交；如果错
 
 误，则自动回滚。
 
@@ -1329,7 +1433,7 @@ SET AUTOCOMMIT=0 禁止自动提交
 
 SET AUTOCOMMIT=1 开启自动提交
 
-### 事务的ACID特性
+### 事务的 ACID 特性
 
 **原子性（Atomicity）**：事务是一个完整的操作。事务的各步操作是不可分的（原子的）；要么都执行，要么都不
 
@@ -1341,19 +1445,19 @@ SET AUTOCOMMIT=1 开启自动提交
 
 式依赖于或影响其他事务。
 
-**永久性（Durability）**：事务完成后，它对数据库的修改被永久保持。
+**持续性（Durability）**：事务完成后，它对数据库的修改被永久保持。
 
 ## 7.2.1 并发操作引起的异常
 
 丢失更新（Lost Update）
 
-未提交读（Uncommitted read），也称为“脏读” 
+未提交读（Uncommitted read），也称为“脏读”
 
 不可重复读（Nonrepeatable read）
 
 幻象读（Phantom read）
 
-### 并发控制机制：是衡量DBMS系统性能的指标之一
+### 并发控制机制：是衡量 DBMS 系统性能的指标之一
 
 并发控制是以**事务**为单位进行的。
 
@@ -1369,29 +1473,29 @@ SET AUTOCOMMIT=1 开启自动提交
 
 ## 7.2.3 封锁
 
-事务T在对某个数据对象(如数据库、表、记录等)操作之前，首先向系统发出加锁请求以便获得对数据对象相应的
+事务 T 在对某个数据对象(如数据库、表、记录等)操作之前，首先向系统发出加锁请求以便获得对数据对象相应的
 
 控制；
 
-在事务T释放它所获得的锁之前，其他事务不能更新此数据对象。
+在事务 T 释放它所获得的锁之前，其他事务不能更新此数据对象。
 
 ### 排它锁(eXclusive lock)：写锁
 
-若事务T对数据对象A加上X锁，则只允许T读取和修改A，其它任何事务都不能再对A加任何类型的锁，直到T释放A
+若事务 T 对数据对象 A 加上 X 锁，则只允许 T 读取和修改 A，其它任何事务都不能再对 A 加任何类型的锁，直到 T 释放 A
 
 上的锁
 
 ### 共享锁(Share lock)：读锁
 
-若事务T对数据对象A加上S锁，则事务T可以读A但不能修改A，其它事务只能再对A加S锁，而不能加X锁，直到T释
+若事务 T 对数据对象 A 加上 S 锁，则事务 T 可以读 A 但不能修改 A，其它事务只能再对 A 加 S 锁，而不能加 X 锁，直到 T 释
 
-放A上的S锁
+放 A 上的 S 锁
 
 ### 三个级别的封锁协议
 
 #### 一级封锁协议
 
-==内容：事务T在修改数据R之前必须先对其加X 锁，直至事务结束==
+==内容：事务 T 在修改数据 R 之前必须先对其加 X 锁，直至事务结束==
 
 事务结束包括正常结束（COMMIT）和非正常结束（ROLLBACK）
 
@@ -1409,7 +1513,7 @@ SET AUTOCOMMIT=1 开启自动提交
 
 内容：
 
-==读数据前加S锁，读完即释放，写数据前加X 锁直至事务结束==
+==读数据前加 S 锁，读完即释放，写数据前加 X 锁直至事务结束==
 
 评价：是否可解决
 
@@ -1423,7 +1527,7 @@ SET AUTOCOMMIT=1 开启自动提交
 
 内容：
 
-==读数据前加S锁直至事务结束，写数据前加X 锁直至事务结束==
+==读数据前加 S 锁直至事务结束，写数据前加 X 锁直至事务结束==
 
 评价：是否可解决
 
@@ -1435,13 +1539,13 @@ SET AUTOCOMMIT=1 开启自动提交
 
 ## 7.2.4 死锁
 
-事务T1和T2各自封锁了数据R1和R2后，又各自请求封锁R2和R1，因都无法获得而等待对方释放的现象
+事务 T1 和 T2 各自封锁了数据 R1 和 R2 后，又各自请求封锁 R2 和 R1，因都无法获得而等待对方释放的现象
 
 ### 解决的两类方法
 
-​	预防死锁
+ 预防死锁
 
-​	死锁的诊断与解除
+ 死锁的诊断与解除
 
 **一次封锁法**
 
@@ -1455,7 +1559,7 @@ SET AUTOCOMMIT=1 开启自动提交
 
 存在问题？维护成本高
 
-==因此DBMS普遍采用诊断并解除死锁的办法==
+==因此 DBMS 普遍采用诊断并解除死锁的办法==
 
 ### 死锁的诊断
 
@@ -1487,13 +1591,14 @@ SET AUTOCOMMIT=1 开启自动提交
 
 它们时的结果相同
 
-为了保证并发操作的正确性，DBMS的并发控制机制必须提供一定的手段来保证调度是可串行化的
+为了保证并发操作的正确性，DBMS 的并发控制机制必须提供一定的手段来保证调度是可串行化的
 
 保证事务调度可串行性的策略
 
 ==两段锁(Two-Phase Locking, 2PL)协议==
 
 两段锁协议的内容
+
 1. 在对任何数据进行读、写操作之前，事务首先要获得对该数据的封锁
 2. 在释放一个封锁之后，事务不再获得任何其他封锁
 
@@ -1519,12 +1624,12 @@ SET AUTOCOMMIT=1 开启自动提交
 
 封锁粒度越小，并发度越高，系统封锁开销越大；
 
-## 7.2.7 MySQL的锁
+## 7.2.7 MySQL 的锁
 
-MySQL的锁分为表级锁和行级锁。
+MySQL 的锁分为表级锁和行级锁。
 （1）表级锁：是以表为单位进行加锁，开销小，加锁快，不会出现死锁。锁粒度大，发生锁冲突的概率最高，并
 
-发度最低，表级锁适合做查询为主的场景，如小型的Web应用。
+发度最低，表级锁适合做查询为主的场景，如小型的 Web 应用。
 
 表级锁包括：表共享读锁（Table Read Lock）和表独占写锁(Table Write Lock)。
 
@@ -1532,13 +1637,13 @@ MySQL的锁分为表级锁和行级锁。
 
 对于写操作，可以增加写锁，一旦数据表被加上写锁，其他请求无法对该表增加读锁和写锁。
 
-MySQL表级锁加入方式：
+MySQL 表级锁加入方式：
 
 LOCK TABLES 表名 READ
 
-​      [表名 WRITE]...;
+ [表名 WRITE]...;
 
-MySQL解锁方式：
+MySQL 解锁方式：
 
 UNLOCK TABLES；
 
@@ -1548,34 +1653,33 @@ UNLOCK TABLES；
 
 行级锁适用于高并发环境下，对事务完整性要求较高的系统，如在线事务处理系统。
 
-行级锁包括共享锁（S锁）和排它锁（X锁）。
+行级锁包括共享锁（S 锁）和排它锁（X 锁）。
 
-MySQL行级共享锁加锁方式：
+MySQL 行级共享锁加锁方式：
 
-SELECT * FROM 表名 WHERE 条件 LOCK IN SHARE MODE；
+SELECT \* FROM 表名 WHERE 条件 LOCK IN SHARE MODE；
 
 解锁方式：COMMIT/ROLLBACK。
 
-MySQL行级排他锁加锁方式：
+MySQL 行级排他锁加锁方式：
 
-自动方式：在更新（INSERT、UPDATE、DELETE）语句中，MySQL将会对符合条件的记录默认自动加上X锁。
+自动方式：在更新（INSERT、UPDATE、DELETE）语句中，MySQL 将会对符合条件的记录默认自动加上 X 锁。
 
-手动加入方式：SELECT * FROM 表名 WHERE 条件 FOR UPDATE；
+手动加入方式：SELECT \* FROM 表名 WHERE 条件 FOR UPDATE；
 
 （3）表的意向锁
 
-意向锁是隐式的表级锁，数据库开发人员在向表中的某些记录加行级锁时，MySQL首先会自动向该表施加意向
+意向锁是隐式的表级锁，数据库开发人员在向表中的某些记录加行级锁时，MySQL 首先会自动向该表施加意向
 
 锁，然后再施加行级锁。
 
 意向锁是数据引擎自己维护的，用户无法手动操作意向锁。
 
-MySQL提供两种意向锁：意向共享锁（IS）和意向排他锁（IX）。
+MySQL 提供两种意向锁：意向共享锁（IS）和意向排他锁（IX）。
 
 ## 无损分解的判断
 
-表 T ，函数依赖集F
-
+表 T ，函数依赖集 F
 
 <img src="./assets/image-20241209120408841.png" alt="image-20241209120408841" style="zoom: 67%;" />
 
@@ -1621,21 +1725,21 @@ MySQL提供两种意向锁：意向共享锁（IS）和意向排他锁（IX）�
 
 易于向关系数据模型转换。
 
-概念结构常用E-R模型来描述。
+概念结构常用 E-R 模型来描述。
 
 ## 9.2.3 逻辑结构设计
 
-将基本E-R图转换为与选用DBMS所支持的数据模型相符合的逻辑结构。
+将基本 E-R 图转换为与选用 DBMS 所支持的数据模型相符合的逻辑结构。
 
 ## 9.2.4 数据库的物理设计
 
-## 9.2.5数据库的实施阶段
+## 9.2.5 数据库的实施阶段
 
 数据库实施阶段的任务
 
 模式定义
 
-使用选定DBMS支持的DDL语言：CREATE  TABLE、 CREATE VIEW……  
+使用选定 DBMS 支持的 DDL 语言：CREATE TABLE、 CREATE VIEW……
 
 数据载入
 
@@ -1651,29 +1755,29 @@ MySQL提供两种意向锁：意向共享锁（IS）和意向排他锁（IX）�
 
 ## 9.2.6 数据库的运行和维护
 
-主要由DBA完成
+主要由 DBA 完成
 
 ### 1 数据库的转储和恢复
 
 转储和恢复是系统正式运行后最重要的维护工作之一。
 
-DBA要针对不同的应用要求制定不同的转储计划，定期对数据库和日志文件进行备份。
+DBA 要针对不同的应用要求制定不同的转储计划，定期对数据库和日志文件进行备份。
 
 一旦发生介质故障，即利用数据库备份及日志文件备份，尽快将数据库恢复到某种一致性状态。
 
-### ⒉数据库的安全性、完整性控制
+### ⒉ 数据库的安全性、完整性控制
 
-DBA必须根据用户的实际需要授予不同的操作权限
+DBA 必须根据用户的实际需要授予不同的操作权限
 
-在数据库运行过程中，由于应用环境的变化，对安全性的要求也会发生变化，DBA需要根据实际情况修改原有的
+在数据库运行过程中，由于应用环境的变化，对安全性的要求也会发生变化，DBA 需要根据实际情况修改原有的
 
 安全性控制。
 
-由于应用环境的变化，数据库的完整性约束条件也会变化，也需要DBA不断修正，以满足用户要求。
+由于应用环境的变化，数据库的完整性约束条件也会变化，也需要 DBA 不断修正，以满足用户要求。
 
-### ⒊数据库性能的监督、分析和改进
+### ⒊ 数据库性能的监督、分析和改进
 
-在数据库运行过程中， DBA必须监督系统运行，对监测数据进行分析，找出改进系统性能的方法。
+在数据库运行过程中， DBA 必须监督系统运行，对监测数据进行分析，找出改进系统性能的方法。
 
 利用监测工具获取系统运行过程中一系列性能参数的值
 
@@ -1692,4 +1796,3 @@ DBA必须根据用户的实际需要授予不同的操作权限
 数据库重组：不改变原设计中的逻辑和物理结构，而对部分表重新组织其存储情况，如重新安排存储位置、回收垃
 
 圾等，以提高系统性能。
-
